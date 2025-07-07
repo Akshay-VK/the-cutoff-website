@@ -1,4 +1,6 @@
-import { integer, serial, text, timestamp, pgTableCreator, pgEnum } from 'drizzle-orm/pg-core';
+import "server-only"; // This is required to ensure that the server-only code is executed in the server context.
+
+import { integer, serial, text, pgTableCreator, pgEnum } from 'drizzle-orm/pg-core';
 
 export const createTable = pgTableCreator(
   (name) => `the-cutoff-website_${name}`,
