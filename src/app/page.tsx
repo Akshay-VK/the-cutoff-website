@@ -5,7 +5,7 @@ import Test from "./test";
 
 export default async function HomePage() {
 
-  let karnatakaColleges = await db.select().from(collegeTable).where(
+  const karnatakaColleges = await db.select().from(collegeTable).where(
     eq(collegeTable.state,"Karnataka")
   );
 
