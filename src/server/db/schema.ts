@@ -21,7 +21,7 @@ export const seatTypeEnum = pgEnum("seat_type", [
 
 export const genderEnum = pgEnum("gender", ["Gender-Neutral", "Female-only (including Supernumerary)"]);
 
-export const rankTypeEnum = pgEnum("rank_type", ["AI","OS","HS"]);
+export const rankTypeEnum = pgEnum("rank_type", ["AI","OS","HS","GO","LA","JK"]);
 
 export const collegeTable = createTable('college_table', {
   id: serial('id').primaryKey(),
