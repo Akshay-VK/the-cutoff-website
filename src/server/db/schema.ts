@@ -46,6 +46,8 @@ export const cutoffTable = createTable('cutoff_table', {
   closingRank: integer('closing_rank').notNull(),
 
 });
+
+
 export type InsertCollege = typeof collegeTable.$inferInsert;
 export type SelectCollege = typeof collegeTable.$inferSelect;
 export type InsertCutoff = typeof cutoffTable.$inferInsert;

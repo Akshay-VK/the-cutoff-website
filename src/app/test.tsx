@@ -9,7 +9,7 @@ export default function Test(props: {
         <ul className="list-disc">
             {props.colleges.map((college) => (
                 <li key={college.id}>
-                    {college.name} - {college.state} - {college.type}
+                    {college.id} - {college.name} - {college.state} - {college.type}
                 </li>
             ))}
         </ul>

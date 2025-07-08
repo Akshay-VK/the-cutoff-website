@@ -44,3 +44,7 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# scripts
+/scripts/__pycache__
+/scripts/colleges_state.csv
