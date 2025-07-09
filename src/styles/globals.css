@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-primary-100: var(--color-zinc-900);
+  --color-primary-200: var(--color-zinc-800);
+  --color-primary-300: var(--color-zinc-700);
+
+  --color-text-100: var(--color-zinc-100);
+  --color-text-200: var(--color-zinc-500);
+
+  --color-highlight-100: var(--color-zinc-600);
 }
