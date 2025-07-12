@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { titleCase } from "~/lib/utils";
 
 export default function Sidebar(){
 
@@ -12,7 +13,6 @@ export default function Sidebar(){
 
     let path = usePathname();
 
-    const titleCase = (str: string) => str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     return (
         <div className="shrink w-60 m-2 flex flex-col gap-2">
@@ -24,7 +24,7 @@ export default function Sidebar(){
                 let value=v.replace("-"," ");
                 value = titleCase(value.split('/')[1] ?? "");
                 return (
-                    <div className={clsx("h-12 hover:bg-primary-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primary-200" : "bg-primary-100")} key={value}>
+                    <div className={clsx("h-12 hover:bg-primaryLight-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primaryLight-200" : "bg-primaryLight-100")} key={value}>
                         {value}
                     </div>
                 );
