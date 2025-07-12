@@ -15,28 +15,28 @@ import { Button } from "./ui/button";
 
 export default function Filters() {
 
-    interface Query{
-        year: number,
-        round: 1 | 2 | 3 | 4 | 5 | 6,
-        increasing: boolean,
-        from:number,
-        to:number,
-    }
+    // interface Query{
+    //     year: number,
+    //     round: 1 | 2 | 3 | 4 | 5 | 6,
+    //     increasing: boolean,
+    //     from:number,
+    //     to:number,
+    // }
 
     enum SortBy {
         opening = "opening",
         closing = "closing",
     }
 
-    let years = [2025, 2024, 2023];
-    let rounds = [1, 2, 3, 4, 5, 6];
+    const years = [2025, 2024, 2023];
+    const rounds = [1, 2, 3, 4, 5, 6];
 
-    let numericalFields = [
+    const numericalFields = [
         SortBy.opening,
         SortBy.closing,
     ];
 
-    let [dataQuery,setDataQuery] = useState({
+    const [dataQuery,setDataQuery] = useState({
         year: 2025,
         round: 1,
         sortBy: SortBy.closing,
@@ -175,7 +175,7 @@ export default function Filters() {
         );
     }
 
-    let filters = [
+    const filters = [
         YearFilter,
         RoundFilter,
         SortFilter,

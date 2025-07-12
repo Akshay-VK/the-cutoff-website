@@ -6,9 +6,9 @@ import { collegeTable } from "~/server/db/schema";
 
 export default async function CutoffViewer() {
 
-  const karnatakaColleges = await db.select().from(collegeTable).where(
-    eq(collegeTable.state,"Karnataka")
-  );
+  // const karnatakaColleges = await db.select().from(collegeTable).where(
+  //   eq(collegeTable.state,"Karnataka")
+  // );
 
 
   return (

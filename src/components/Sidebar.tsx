@@ -6,12 +6,12 @@ import { titleCase } from "~/lib/utils";
 
 export default function Sidebar(){
 
-    let paths = [
+    const paths = [
         "/cutoff-viewer",
         "/cutoff-plotter"
     ];
 
-    let path = usePathname();
+    const path = usePathname();
 
 
     return (
