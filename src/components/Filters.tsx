@@ -214,7 +214,7 @@ export default function Filters(
             </div>
             <div className="grow m-2 max-w-4/5">
                 {(res.length == 0) ?
-                    (<p className=" w-full h-full grid place-content-center text-6xl font-bold">Content</p>)
+                    (<p className=" w-full h-full grid place-content-center text-5xl font-bold">{"Nothing here  (～￣3￣)～"}</p>)
                 :
                     (
                         <ScrollArea className="min-h-[calc(100vh-40px)] h-[calc(100vh-40px)] scroll-pb-6 w-full rounded-2xl">
