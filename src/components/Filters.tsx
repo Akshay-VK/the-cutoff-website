@@ -13,6 +13,8 @@ import { titleCase, type Query, type CutoffData } from "~/lib/utils";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
+import { Badge } from "./ui/badge";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function Filters(
     {
@@ -136,7 +138,7 @@ export default function Filters(
                         ))}
                     </SelectContent>
                 </Select>
-                <button className="basis-2/6 grid place-content-center bg-blue-500 hover:bg-blue-400 border border-blue-300 rounded-3xl cursor-pointer" onClick={()=>{
+                <button className="basis-2/6 grid place-content-center bg-blue-500 hover:bg-blue-400 border border-blue-300 dark:border-blue-500 rounded-3xl cursor-pointer" onClick={()=>{
                     setDataQuery((prev) => ({ ...prev, increasing: !prev.increasing }));
                     console.log(dataQuery.increasing);
                 }}>
@@ -179,7 +181,7 @@ export default function Filters(
 
     function setFilters() {
         return (
-            <Button className="bg-blue-500 hover:bg-blue-400 border border-blue-300 dark:border-blue-500 text-textLight-100 dark:text-text-100 p-4 rounded-3xl cursor-pointer w-full" onClick={async ()=>{
+            <Button className="bg-blue-500 hover:bg-blue-400 border border-blue-300 dark:border-blue-500 text-text-100 p-4 rounded-3xl cursor-pointer w-full" onClick={async ()=>{
                 // console.log(dataQuery);
                 setRes(await getDataAction(dataQuery));
                 console.log(res);
@@ -199,9 +201,9 @@ export default function Filters(
 
 
     return (
-        <div className="bg-primaryLight-200 dark:bg-primary-200 border border-highlightLight-100 dark:border-highlight-100 divide-x divide-highlightLight-100 dark:divide-highlight-100 grow my-2 mr-2 rounded-2xl flex flex-row">
-            <div className="w-60 rounded-l-2xl font-medium divide-y divide-highlightLight-100 dark:divide-highlight-100 flex flex-col gap-2">
-                <div className="grid place-content-center p-3 font-semibold">Filters</div>
+        <div className="bg-primaryLight-200 dark:bg-primary-200 border border-highlightLight-100 dark:border-highlight-100 divide-x divide-highlightLight-100 dark:divide-highlight-100 grow max-w-5/6 my-2 mr-2 rounded-2xl flex flex-row">
+            <div className="w-60 flex-none rounded-l-2xl font-medium divide-y divide-highlightLight-100 dark:divide-highlight-100 flex flex-col gap-2">
+                <div className="grid place-content-center p-3 font-semibold text-lg">Filters</div>
                 <div className="grow flex flex-col gap-2 mt-4">
                         {filters.map((v,i) => {
                             return (
@@ -210,22 +212,23 @@ export default function Filters(
                         })}
                 </div>
             </div>
-            <div className="grow m-4">
+            <div className="grow m-2 max-w-4/5">
                 {(res.length == 0) ?
                     (<p className=" w-full h-full grid place-content-center text-6xl font-bold">Content</p>)
                 :
                     (
-                        <div className="text-center text-textLight-200 dark:text-text-200 flex flex-col gap-2">
-                            {res.map((data, index) => (
-                                <div key={index} className="border rounded-2xl border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-300 dark:bg-primary-300">
-                                    <p><strong>Course:</strong> {data.name}</p>
-                                    <p><strong>College:</strong> {data.college}</p>
-                                    <p><strong>State:</strong> {data.state}</p>
-                                    <p><strong>Opening:</strong> {data.opening}</p>
-                                    <p><strong>Closing:</strong> {data.closing}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <ScrollArea className="min-h-[calc(100vh-40px)] h-[calc(100vh-40px)] scroll-pb-6 w-full rounded-2xl">
+                            <div className="text-center text-textLight-100 dark:text-text-100 flex flex-col gap-2">
+                                {res.map((data, index) => (
+                                    <div key={index} className="border p-2 rounded-2xl border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-300 dark:bg-primary-300 flex flex-col gap-2">
+                                        <p className="font-semibold text-lg text-left max-w-4/5 w-fit">{data.name}</p>
+                                        <p className="font-medium text-left w-fit">{data.college}<b className="text-textLight-200 dark:text-text-200">{"  "}{data.state}</b></p>
+                                        <p className="text-left flex flex-row gap-1 w-fit"><Badge>{data.seat_type.toUpperCase()}</Badge><Badge variant="outline">{data.gender}</Badge><Badge variant="outline">{data.quota}</Badge></p>
+                                        <p className="text-left font-semibold bg-primaryLight-200 dark:bg-primary-200 w-fit px-3 py-1 rounded-2xl border border-highlightLight-100 dark:border-highlight-100">{data.opening} - {data.closing}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </ScrollArea>
                     )
                 }
             </div>

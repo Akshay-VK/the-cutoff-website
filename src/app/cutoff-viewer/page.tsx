@@ -36,6 +36,8 @@ export default async function CutoffViewer() {
       college: collegeTable.name,
       state: collegeTable.state,
       gender: cutoffTable.gender,
+      seat_type: cutoffTable.seatType,
+      quota: cutoffTable.rankType,
       type: collegeTable.type,
       opening: cutoffTable.openingRank,
       closing: cutoffTable.closingRank,

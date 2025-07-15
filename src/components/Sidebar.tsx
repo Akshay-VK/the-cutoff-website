@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { titleCase } from "~/lib/utils";
+import { ModeToggle } from "./theme-toggle";
 
 export default function Sidebar(){
 
@@ -15,7 +16,7 @@ export default function Sidebar(){
 
 
     return (
-        <div className="shrink w-60 m-2 flex flex-col gap-2">
+        <div className="shrink w-60 h-[calc(100vh-20px)] m-2 flex flex-col gap-2 relative">
             <div className="font-bold text-xl text-center h-12 grid place-content-center">
                 The Cutoff Website
             </div>
@@ -29,6 +30,9 @@ export default function Sidebar(){
                     </div>
                 );
             })}
+            <div className="absolute w-fit h-fit bottom-0 right-0">
+                <ModeToggle/>
+            </div>
         </div>
     )
 }
