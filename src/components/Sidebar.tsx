@@ -24,7 +24,7 @@ export default function Sidebar(){
                 let value=v.replace("-"," ");
                 value = titleCase(value.split('/')[1] ?? "");
                 return (
-                    <div className={clsx("h-12 hover:bg-primaryLight-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primaryLight-200" : "bg-primaryLight-100")} key={value}>
+                    <div className={clsx("h-12 hover:bg-primaryLight-300 darkhover:bg-primary-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primaryLight-200 dark:bg-primary-200" : "bg-primaryLight-100 dark:bg-primary-100")} key={value}>
                         {value}
                     </div>
                 );

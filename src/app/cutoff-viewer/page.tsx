@@ -60,7 +60,7 @@ export default async function CutoffViewer() {
   }
 
   return (
-    <main className="w-full min-w-screen min-h-screen bg-primaryLight-100 text-textLight-100 flex flex-row">
+    <main className="w-full min-w-screen min-h-screen bg-primaryLight-100 text-textLight-100 dark:bg-primary-100 dark:text-text-100 flex flex-row">
       <Sidebar/>
       <Filters PdataQuery={dataQuery} getDataAction={getData}/>
     </main>

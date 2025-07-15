@@ -44,7 +44,7 @@ export default function Filters(
 
     function YearFilter() {
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 flex flex-row">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row">
                 <p className="basis-2/3 grid place-content-center">
                     Year
                 </p>
@@ -52,12 +52,12 @@ export default function Filters(
                     console.log(value);
                     setDataQuery((prev) => ({ ...prev, year: parseInt(value) }));
                 }}>
-                    <SelectTrigger className="basis-1/3 rounded-2xl border border-highlightLight-100 bg-primaryLight-200 cursor-pointer">
+                    <SelectTrigger className="basis-1/3 rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200 cursor-pointer">
                         <SelectValue placeholder="Year" />
                     </SelectTrigger>
-                    <SelectContent className="bg-primaryLight-200 rounded-3xl text-textLight-200 border border-highlightLight-100">
+                    <SelectContent className="bg-primaryLight-200 dark:bg-primary-200 rounded-3xl text-textLight-200 dark:text-text-200 border border-highlightLight-100 dark:border-highlight-100">
                         {years.map((year) => (
-                            <SelectItem key={year} value={year.toString()} className="bg-primaryLight-200 rounded-2xl hover:bg-primaryLight-300 text-textLight-200 cursor-pointer">{year}</SelectItem>
+                            <SelectItem key={year} value={year.toString()} className="bg-primaryLight-200 dark:bg-primary-200 rounded-2xl hover:bg-primaryLight-300 dark:hover:bg-primary-300 text-textLight-200 dark:text-text-200 cursor-pointer">{year}</SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
@@ -67,7 +67,7 @@ export default function Filters(
 
     function RoundFilter() {
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 flex flex-row">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row">
                 <p className="basis-2/3 grid place-content-center">
                     Round
                 </p>
@@ -76,12 +76,12 @@ export default function Filters(
                     let v = parseInt(value);
                     setDataQuery((prev) => ({ ...prev, round: v > 6 ? 6 : v < 1 ? 1 : v }));
                 }}>
-                    <SelectTrigger className="basis-1/3 rounded-2xl border border-highlightLight-100 bg-primaryLight-200 cursor-pointer">
+                    <SelectTrigger className="basis-1/3 rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200 cursor-pointer">
                         <SelectValue placeholder="Round" />
                     </SelectTrigger>
-                    <SelectContent className="bg-primaryLight-200 rounded-3xl text-textLight-200 border border-highlightLight-100">
+                    <SelectContent className="bg-primaryLight-200 dark:bg-primary-200 rounded-3xl text-textLight-200 dark:text-text-200 border border-highlightLight-100 dark:border-highlight-100">
                         {rounds.map((round) => (
-                            <SelectItem key={round} value={round.toString()} className="bg-primaryLight-200 rounded-2xl hover:bg-primaryLight-300 text-textLight-200 cursor-pointer">{round}</SelectItem>
+                            <SelectItem key={round} value={round.toString()} className="bg-primaryLight-200 dark:bg-primary-200 rounded-2xl hover:bg-primaryLight-300 dark:hover:bg-primary-300 text-textLight-200 dark:text-text-200 cursor-pointer">{round}</SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
@@ -91,7 +91,7 @@ export default function Filters(
 
     function CollegeFilter(){
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
                 <p className="basis-2/3 grid place-content-center">
                     IIT
                 </p>
@@ -106,7 +106,7 @@ export default function Filters(
 
     function GenderFilter(){
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
                 <p className="basis-2/3 grid place-content-center">
                     Female only
                 </p>
@@ -121,18 +121,18 @@ export default function Filters(
 
     function SortFilter(){
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row gap-3">
                 <div className="basis-2/6 grid place-content-center">Sort</div>
                 <Select value={dataQuery.sortBy} onValueChange={(value) => {
                     console.log(value);
                     setDataQuery({ ...dataQuery, sortBy: value as keyof typeof SortBy});
                 }}>
-                    <SelectTrigger className="basis-2/6 rounded-2xl border border-highlightLight-100 bg-primaryLight-200 text-xs cursor-pointer">
+                    <SelectTrigger className="basis-2/6 rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200 text-xs cursor-pointer">
                         <SelectValue placeholder="Round" />
                     </SelectTrigger>
-                    <SelectContent className="bg-primaryLight-200 rounded-3xl text-textLight-200 border border-highlightLight-100">
+                    <SelectContent className="bg-primaryLight-200 dark:bg-primary-200 rounded-3xl text-textLight-200 dark:text-text-200 border border-highlightLight-100 dark:border-highlight-100">
                         {numericalFields.map((field) => (
-                            <SelectItem key={field} value={field} className="bg-primaryLight-200 rounded-2xl hover:bg-primaryLight-300 text-textLight-200 cursor-pointer">{titleCase(field.replace('_',' '))}</SelectItem>
+                            <SelectItem key={field} value={field} className="bg-primaryLight-200 dark:bg-primary-200 rounded-2xl hover:bg-primaryLight-300 dark:hover:bg-primary-300 text-textLight-200 dark:text-text-200 cursor-pointer">{titleCase(field.replace('_',' '))}</SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
@@ -155,7 +155,7 @@ export default function Filters(
 
     function RangeFilter() {
         return (
-            <div className="bg-primaryLight-300 rounded-3xl py-2 px-4 grid grid-cols-2 gap-2">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 grid grid-cols-2 gap-2">
                 <div className="grid place-content-center">
                     From
                 </div>
@@ -163,7 +163,7 @@ export default function Filters(
                     <Input type="number" value={dataQuery.from} onChange={(v)=>{
                         console.log(dataQuery.from);
                         setDataQuery((prev) => ({ ...prev, from: parseInt(v.target.value) }));
-                    }} className="rounded-2xl border border-highlightLight-100 bg-primaryLight-200"/>
+                    }} className="rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200"/>
                 </div>
                 <div className="grid place-content-center">
                     To
@@ -171,7 +171,7 @@ export default function Filters(
                 <div className="grid place-content-center">
                     <Input type="number" value={dataQuery.to} onChange={(v)=>{
                         setDataQuery((prev) => ({ ...prev, to: parseInt(v.target.value) }));
-                    }} className="rounded-2xl border border-highlightLight-100 bg-primaryLight-200"/>
+                    }} className="rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200"/>
                 </div>
             </div>
         );
@@ -179,7 +179,7 @@ export default function Filters(
 
     function setFilters() {
         return (
-            <Button className="bg-blue-500 hover:bg-blue-400 border border-blue-300 p-4 rounded-3xl cursor-pointer w-full" onClick={async ()=>{
+            <Button className="bg-blue-500 hover:bg-blue-400 border border-blue-300 dark:border-blue-500 text-textLight-100 dark:text-text-100 p-4 rounded-3xl cursor-pointer w-full" onClick={async ()=>{
                 // console.log(dataQuery);
                 setRes(await getDataAction(dataQuery));
                 console.log(res);
@@ -199,25 +199,25 @@ export default function Filters(
 
 
     return (
-        <div className="bg-primaryLight-200 border border-highlightLight-100 divide-x divide-highlightLight-100 grow my-2 mr-2 rounded-2xl flex flex-row">
-            <div className="w-60 rounded-l-2xl font-medium divide-y divide-highlightLight-100 flex flex-col gap-2">
+        <div className="bg-primaryLight-200 dark:bg-primary-200 border border-highlightLight-100 dark:border-highlight-100 divide-x divide-highlightLight-100 dark:divide-highlight-100 grow my-2 mr-2 rounded-2xl flex flex-row">
+            <div className="w-60 rounded-l-2xl font-medium divide-y divide-highlightLight-100 dark:divide-highlight-100 flex flex-col gap-2">
                 <div className="grid place-content-center p-3 font-semibold">Filters</div>
                 <div className="grow flex flex-col gap-2 mt-4">
                         {filters.map((v,i) => {
                             return (
-                                <div key={i} className="w-full p-2">{v()}</div>
+                                <div key={i} className="w-full px-2 py-1.5">{v()}</div>
                             );
                         })}
                 </div>
             </div>
-            <div className="grow mr-4">
+            <div className="grow m-4">
                 {(res.length == 0) ?
                     (<p className=" w-full h-full grid place-content-center text-6xl font-bold">Content</p>)
                 :
                     (
-                        <div className="text-center text-textLight-200 flex flex-col gap-2">
+                        <div className="text-center text-textLight-200 dark:text-text-200 flex flex-col gap-2">
                             {res.map((data, index) => (
-                                <div key={index} className="border rounded-2xl border-highlightLight-100 bg-primaryLight-300">
+                                <div key={index} className="border rounded-2xl border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-300 dark:bg-primary-300">
                                     <p><strong>Course:</strong> {data.name}</p>
                                     <p><strong>College:</strong> {data.college}</p>
                                     <p><strong>State:</strong> {data.state}</p>
