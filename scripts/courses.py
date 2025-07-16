@@ -27,7 +27,7 @@ def seat_type(s):
 
 
 
-def generate_cutoffs_csv(htmlfilename: str, collegescsvfilename: str, year: int, round_no: int, dryrun: bool = True, outdir: str = "."):
+def generate_cutoffs_csv(htmlfilename: str, collegescsvfilename: str, year: int, round_no: int, dryrun: bool = True, outdir: str = ".", start: int = 1):
     """Generate a CSV file with cutoffs for a given year and round.
     Args:
         htmlfilename (str): The name of the HTML file containing cutoff data.
@@ -62,7 +62,7 @@ def generate_cutoffs_csv(htmlfilename: str, collegescsvfilename: str, year: int,
     # Example of contents_parsed:
     # [['Indian Institute of Technology Bhubaneswar'], ['Civil Engineering (4 Years, Bachelor of Technology)'], ['AI'], ['Open'], ['Gender-Neutral'], ['10063'], ['13957']]
 
-    i=1
+    i=start
     res=[["id","course_name","college_id","year","round","seat_type","gender","rank_type","opening_rank","closing_rank"]]
     for c in contents_parsed[1:]:
         college_name=c[0][0].strip()
@@ -80,14 +80,16 @@ def generate_cutoffs_csv(htmlfilename: str, collegescsvfilename: str, year: int,
                 int(c[6][0].strip() if not c[6][0].strip().endswith('.0') else c[6][0].strip()[:-2])
                 ]) # type: ignore
             i+=1
-        else:
-            print(f"Skipping: {c[5][0].strip()}\t{c[6][0].strip()}")
+        # else:
+        #     print(f"---Skipping: {c[5][0].strip()}\t{c[6][0].strip()}")
 
-    print(res[:10])  # Print first 10 rows for verification
+    # print(res[:3])  # Print first 3 rows for verification
 
     if not dryrun:
         with open(f'{outdir}/cutoffs_{year}_{round_no}.csv', 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(res)
             
-        print("Cutoffs data written")
+        print(f"Cutoffs data written for year {year}, round {round_no}.")
+
+    return i
