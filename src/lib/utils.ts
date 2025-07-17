@@ -16,6 +16,7 @@ export interface CutoffData {
   name: string,
   college: string,
   state: string,
+  year: number,
   gender: "Gender-Neutral" | "Female-only (including Supernumerary)",
   seat_type: "open" | "open_pwd" | "ews" | "ews_pwd" | "obc" | "obc_pwd" | "sc" | "sc_pwd" | "st" | "st_pwd",
   quota: "AI" | "OS" | "HS" | "GO" | "LA" | "JK",
