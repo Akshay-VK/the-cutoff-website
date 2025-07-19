@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import csv
 
-def generate_colleges_csv(htmlfilename: str, year: int, outdir: str = ".", dryrun: bool = True):
+def generate_colleges_csv(htmlfilename: str, outdir: str = ".", dryrun: bool = True):
     """Generate a CSV file with college names, states, and types.
     Args:
         htmlfilename (str): The name of the HTML file containing college data.
@@ -42,7 +42,7 @@ def generate_colleges_csv(htmlfilename: str, year: int, outdir: str = ".", dryru
             return 'GFTI'
 
     for line in contents_parsed[1:]:
-        name=line[0][0]
+        name=line[0][0].strip()
         college_name.add(name)
         quota.add(line[2][0])
         seat_type.add(line[3][0])
@@ -67,7 +67,7 @@ def generate_colleges_csv(htmlfilename: str, year: int, outdir: str = ".", dryru
         i+=1
 
     if not dryrun:
-        with open(f'{outdir}/colleges_{year}.csv', 'w', newline='') as f:
+        with open(f'{outdir}/colleges.csv', 'w', newline='') as f:
             writer = csv.writer(f, delimiter='|')
             writer.writerows(res)
 

@@ -60,11 +60,14 @@ def verify(srcdir: str, rounds: int, year: int) -> bool:
         if name in college_state:
             college_name_verified.add(name)
         else:
-            print(f"College name '{name}' not found in college state mapping.")
+            print(f"College name '{name}' not found in college state mapping. {year}")
             return False
     
-    if not len(college_name) == len(college_state):
-        print("Mismatch between number of colleges and states. Please check 'colleges_state.csv'.")
+    if len(college_name_verified) > len(college_state):
+        print(college_name_verified.difference(set(college_state.keys())))
+        # print(set(college_state.keys()).difference(college_name))
+        
+        print("Mismatch between number of colleges and states.Please check 'colleges_state.csv'.")
         return False
 
     return True

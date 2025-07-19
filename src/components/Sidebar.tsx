@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { titleCase } from "~/lib/utils";
 import { ModeToggle } from "./theme-toggle";
 
@@ -25,9 +25,15 @@ export default function Sidebar(){
                 let value=v.replace("-"," ");
                 value = titleCase(value.split('/')[1] ?? "");
                 return (
-                    <div className={clsx("h-12 hover:bg-primaryLight-300 darkhover:bg-primary-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primaryLight-200 dark:bg-primary-200" : "bg-primaryLight-100 dark:bg-primary-100")} key={value}>
+                    <button
+                    onClick={()=>{
+                        console.log(`Redirecting to ${v}`);
+                        redirect(v);
+                    }}
+                    className={clsx("h-12 hover:bg-primaryLight-300 darkhover:bg-primary-300 cursor-pointer rounded-4xl grid place-content-center transition-colors",v==path ? "bg-primaryLight-200 dark:bg-primary-200" : "bg-primaryLight-100 dark:bg-primary-100")}
+                    key={value}>
                         {value}
-                    </div>
+                    </button>
                 );
             })}
             <div className="absolute w-fit h-fit bottom-0 right-0">
