@@ -28,7 +28,7 @@ export default async function CutoffPlotter() {
   return (
     <main className="w-full min-w-screen min-h-screen bg-primaryLight-100 text-textLight-100 dark:bg-primary-100 dark:text-text-100 flex flex-row">
       <Sidebar/>
-      <Plotter/>
+      <Plotter collegeList={collegeGrouped}/>
     </main>
   );
 }

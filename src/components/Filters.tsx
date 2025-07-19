@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select"
+} from "~/components/ui/select";
 import { titleCase, type Query, type CutoffData } from "~/lib/utils";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";

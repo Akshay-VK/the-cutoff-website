@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
+import type { JSX } from "react";
 import { twMerge } from "tailwind-merge"
 
 export interface Query{
@@ -28,6 +29,12 @@ export interface CutoffData {
 export enum SortBy {
   opening = "opening",
   closing = "closing",
+}
+
+export interface Plot {
+  name: string,
+  requirements: (colleges: string[])=>JSX.Element,
+  plot: ()=>JSX.Element
 }
 
 export function cn(...inputs: ClassValue[]) {
