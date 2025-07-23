@@ -26,8 +26,8 @@ export default async function CutoffViewer() {
   async function getData(query: Query): Promise<CutoffData[]> {
     'use server';
     console.log("Fetching data with query:", query);
-    if (query.year < 2023 || query.year > 2025) {
-      throw new Error("Year must be between 2023 and 2025");
+    if (query.year < 2024 || query.year > 2025) {
+      throw new Error("Year must be between 2024 and 2025");
     }
     let consideredField = query.sortBy== SortBy.opening ? cutoffTable.openingRank: cutoffTable.closingRank;
 

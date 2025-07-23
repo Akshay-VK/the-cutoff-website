@@ -37,6 +37,11 @@ export interface Plot {
   plot: ()=>JSX.Element
 }
 
+export interface YearPlotData {
+  courses: string[],
+  colleges: string[],
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }

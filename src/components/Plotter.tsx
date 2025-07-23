@@ -13,6 +13,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuCheckboxItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSub,
@@ -26,17 +27,25 @@ import { OverYear, OverYearFilter } from "./plots/OverYear";
 import { OverCollege, OverCollegeFilter } from "./plots/OverCollege";
 import { OverRound, OverRoundFilter } from "./plots/OverRound";
 import { ScrollArea } from "./ui/scroll-area";
+import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
+import type { YearPlotData, CutoffData } from "~/lib/utils";
 
 export default function Plotter(
     {
-        collegeList
+        collegeList,
+        courses,
+        yearPlotFunction
     }: {
         collegeList:{
             type: "IIT" | "NIT" | "IIIT" | "GFTI";
             colleges: {
                 name: string;
             }[];
-        }[]
+        }[],
+        courses: {
+            name: string;
+        }[],
+        yearPlotFunction: (data: YearPlotData) => Promise<CutoffData[]>;
     }
 ) {
 
@@ -44,13 +53,14 @@ export default function Plotter(
 
     function CollegeSelector(){
         return (
-            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-4 flex flex-row">
+            <div className="bg-primaryLight-300 dark:bg-primary-300 rounded-3xl py-2 px-2 flex flex-row">
+                <div className="grid w-16 text-sm place-content-center bg-blue-500 hover:bg-blue-400 border border-blue-300 dark:border-blue-500 rounded-3xl">{colleges.length}</div>
                 <p className="basis-2/3 grid place-content-center">
                     Colleges
                 </p>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button className="basis-1/3 rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200 text-textLight-100 dark:text-text-100 cursor-pointer">
+                        <Button className="basis-1/3 rounded-2xl border border-highlightLight-100 dark:border-highlight-100 bg-primaryLight-200 dark:bg-primary-200 hover:bg-primaryLight-100 dark:hover:bg-primary-100 text-textLight-200 dark:text-text-200 cursor-pointer">
                             Open
                         </Button>
                     </DropdownMenuTrigger>
@@ -59,27 +69,35 @@ export default function Plotter(
                         <DropdownMenuGroup>
                             {collegeList.map((collegeGroup) => {
                                 return (
-                                    <DropdownMenuSub>
-                                        <DropdownMenuSubTrigger className="cursor-pointer">
+                                    <DropdownMenuSub key={collegeGroup.type}>
+                                        <DropdownMenuSubTrigger className="cursor-pointer hover:bg-primaryLight-300 dark:hover:bg-primary-300 rounded-2xl hover:text-textLight-100 dark:hover:text-text-100" onSelect={(e) => {e.preventDefault();}}>
                                             {collegeGroup.type}
                                         </DropdownMenuSubTrigger>
                                         <DropdownMenuPortal>
-                                            <DropdownMenuSubContent className="bg-primaryLight-200 dark:bg-primary-200 rounded-3xl text-textLight-200 dark:text-text-200 border border-highlightLight-100 dark:border-highlight-100">
-                                                <ScrollArea className="max-h-60 h-60 max-w-72 w-72">
+                                            <DropdownMenuSubContent
+                                            className="bg-primaryLight-200 dark:bg-primary-200 rounded-3xl text-textLight-200 dark:text-text-200 border border-highlightLight-100 dark:border-highlight-100"
+                                            // onSelect={(e) => {e.preventDefault();}}
+                                            >
+                                                <ScrollArea className="max-h-60 h-60 max-w-72 w-72 p-2 rounded rounded-2xl">
                                                     {collegeGroup.colleges.map((college) => {
                                                         return (
-                                                            <DropdownMenuItem className="text-sm cursor-pointer flex flex-row">
-                                                                <Checkbox
-                                                                checked={colleges.includes(college.name)}
-                                                                onCheckedChange={(checked) => {
-                                                                    if (checked) {
-                                                                        setColleges([...colleges, college.name]);
-                                                                    } else {
-                                                                        setColleges(colleges.filter(c => c !== college.name));
-                                                                    }
-                                                                }}/>
+                                                            <DropdownMenuCheckboxItem
+                                                            className="text-sm cursor-pointer hover:bg-primaryLight-300 dark:hover:bg-primary-300 rounded-2xl hover:text-textLight-100 dark:hover:text-text-100"
+                                                            key={college.name}
+                                                            // onSelect={(e) => {e.preventDefault();}}
+                                                            checked={colleges.includes(college.name)}
+                                                            onCheckedChange={(checked) => {
+                                                                if (checked) {
+                                                                    setColleges([...colleges, college.name]);
+                                                                    console.log(colleges);
+                                                                } else {
+                                                                    setColleges(colleges.filter(c => c !== college.name));
+                                                                    console.log(colleges);
+                                                                }
+                                                            }}>
+                                                                <DropdownMenuItemIndicator/>
                                                                 {college.name}
-                                                            </DropdownMenuItem>
+                                                            </DropdownMenuCheckboxItem>
                                                         );
                                                     })}
                                                 </ScrollArea>
@@ -118,6 +136,8 @@ export default function Plotter(
             </div>
         );
     }
+
+    let [year_courses,year_setCourses] = useState<string[]>([]);
     
     return (
         <div className="bg-primaryLight-200 dark:bg-primary-200 border border-highlightLight-100 dark:border-highlight-100 divide-x divide-highlightLight-100 dark:divide-highlight-100 grow max-w-5/6 my-2 mr-2 rounded-2xl flex flex-row">
@@ -127,12 +147,12 @@ export default function Plotter(
                     <div className="w-full px-2 py-1.5"><CollegeSelector/></div>
                     <div className="w-full px-2 py-1.5"><PlotSelector/></div>
                 </div>
-                {plotType=="overYear" && <OverYearFilter/>}
+                {plotType=="overYear" && <OverYearFilter courseList={courses} courses={year_courses} setCourses={year_setCourses}/>}
                 {plotType=="overRound" && <OverRoundFilter/>}
                 {plotType=="overCollege" && <OverCollegeFilter/>}
             </div>
             <div className="grow m-2 max-w-4/5">
-                {plotType=="overYear" && <OverYear/>}
+                {plotType=="overYear" && <OverYear courses={year_courses} colleges={colleges} yearPlotFunction={yearPlotFunction}/>}
                 {plotType=="overRound" && <OverRound/>}
                 {plotType=="overCollege" && <OverCollege/>}
             </div>
