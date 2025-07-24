@@ -27,6 +27,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "~/components/ui/chart";
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
 import { Switch } from "~/components/ui/switch";
 
 
@@ -113,7 +120,7 @@ export function OverYear(
     }: {
         courses: string[];
         colleges: string[];
-        yearPlotFunction: (data: YearPlotData) => Promise<CutoffData[]>;
+        yearPlotFunction: (data: YearPlotData, round: number) => Promise<CutoffData[]>;
         updater: () => YearPlotData;
     }
 ) {
@@ -128,14 +135,66 @@ export function OverYear(
     let seatType = "open";
     let plotOpening = true;
 
+    let [plotData, setPlotData] = useState<{[key: string]: number}[]>([]);
+    let [chartConfig, setChartConfig] = useState<{[key: string]: {label: string, color: string}}>({});
+
     async function updateData(){
 
         setData(updater());
 
         console.log(data);
         console.log(femaleOnly, round, seatType, plotOpening);
-        // let res = await yearPlotFunction(updater());
+        // raw cutoffdata
+        let res = await yearPlotFunction(updater(),round);
         // console.log("Fetched data:", res);
+
+        // filtered cutoffdata
+        let toPlot = res.filter((e)=>(e.gender == (femaleOnly ? "Female-only (including Supernumerary)" : "Gender-Neutral") && e.seat_type == seatType));
+        // console.log("Filtered data: ", toPlot);
+
+        // all years present
+        let years = new Set<number>();
+        // all different lines to plot
+        let course_spec = new Set<[string,string]>()
+        toPlot.forEach((e) => {
+            years.add(e.year);
+            course_spec.add([e.name,e.college]);
+        });
+        // console.log(years, course_spec);
+
+        // actual plot data
+        // let plotData: {[key: string]: number}[] = [];
+        setPlotData([]);
+        [...years].sort().forEach((year) => {
+            let dataPoint: {[key: string]: number} = {};
+            course_spec.forEach((v)=> {
+                let [course, college] = v;
+                let rank = toPlot.find((e) => e.year === year && e.name === course && e.college === college)?.opening;
+                if (rank){
+                    dataPoint[`${course} - ${college}`] = rank;
+                }
+            })
+            // plotData.push({year:year,...dataPoint});
+            setPlotData((prev) => [...prev, {year: year, ...dataPoint}]);
+        });
+        console.log("PLOT:",plotData);
+
+        // chart config setup
+        let colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40"];
+        let i = 0;
+        if(plotData.length>0){
+            let newChartConfig: {[key: string]: {label: string, color: string}} = {};
+            if(!plotData[0]) return;
+            for(let key of Object.keys(plotData[0])){
+                if (key === "year") continue; // skip year key
+                newChartConfig[key] = {
+                    label: key,
+                    color: colors[i % colors.length] ?? "#FF6384",
+                };
+                i++;
+            }
+            setChartConfig(newChartConfig);
+        }
     }
 
     return (
@@ -193,6 +252,27 @@ export function OverYear(
                         </div>
                     </div>
                 </div>
+                <ChartContainer config={chartConfig}>
+                    <LineChart
+                        accessibilityLayer
+                        data={plotData}
+                        margin={{left:12,right:12}}
+                    >
+                        <CartesianGrid vertical={false}/>
+                        <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8}/>
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+                        {Object.keys(chartConfig).map((key)=>{
+                            return (
+                                <Line
+                                    dataKey={key}
+                                    type="monotone"
+                                    stroke={chartConfig[key]?.color}
+                                    strokeWidth={2}
+                                />
+                            );
+                        })}
+                    </LineChart>
+                </ChartContainer>
             </CardContent>
         </Card>
     );

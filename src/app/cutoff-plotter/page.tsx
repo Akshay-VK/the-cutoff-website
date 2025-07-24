@@ -28,7 +28,7 @@ export default async function CutoffPlotter() {
   // console.log("Colleges grouped by type:", collegeGrouped);
   console.log("Courses available:", courses.map(c => c.name));
 
-  async function getYearPlotData(data: YearPlotData): Promise<CutoffData[]> {
+  async function getYearPlotData(data: YearPlotData, round: number): Promise<CutoffData[]> {
     'use server';
 
     console.log("Fetching year plot data for:", data);
@@ -50,6 +50,7 @@ export default async function CutoffPlotter() {
       closing: cutoffTable.closingRank,
     }).from(cutoffTable).where(
       and(
+        eq(cutoffTable.round, round),
         inArray(cutoffTable.courseName, data.courses),
         inArray(collegeTable.name, data.colleges)
       )

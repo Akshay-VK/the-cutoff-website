@@ -45,7 +45,7 @@ export default function Plotter(
         courses: {
             name: string;
         }[],
-        yearPlotFunction: (data: YearPlotData) => Promise<CutoffData[]>;
+        yearPlotFunction: (data: YearPlotData, round: number) => Promise<CutoffData[]>;
     }
 ) {
 
