@@ -152,7 +152,7 @@ export default function Plotter(
                 {plotType=="overCollege" && <OverCollegeFilter/>}
             </div>
             <div className="grow m-2 max-w-4/5">
-                {plotType=="overYear" && <OverYear courses={year_courses} colleges={colleges} yearPlotFunction={yearPlotFunction}/>}
+                {plotType=="overYear" && <OverYear courses={year_courses} colleges={colleges} yearPlotFunction={yearPlotFunction} updater={()=>{return {courses: year_courses, colleges: colleges}}}/>}
                 {plotType=="overRound" && <OverRound/>}
                 {plotType=="overCollege" && <OverCollege/>}
             </div>
