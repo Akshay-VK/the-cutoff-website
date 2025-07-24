@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
+import type { JSX } from "react";
 import { twMerge } from "tailwind-merge"
 
 export interface Query{
@@ -16,6 +17,7 @@ export interface CutoffData {
   name: string,
   college: string,
   state: string,
+  year: number,
   gender: "Gender-Neutral" | "Female-only (including Supernumerary)",
   seat_type: "open" | "open_pwd" | "ews" | "ews_pwd" | "obc" | "obc_pwd" | "sc" | "sc_pwd" | "st" | "st_pwd",
   quota: "AI" | "OS" | "HS" | "GO" | "LA" | "JK",
@@ -27,6 +29,17 @@ export interface CutoffData {
 export enum SortBy {
   opening = "opening",
   closing = "closing",
+}
+
+export interface Plot {
+  name: string,
+  requirements: (colleges: string[])=>JSX.Element,
+  plot: ()=>JSX.Element
+}
+
+export interface YearPlotData {
+  courses: string[],
+  colleges: string[],
 }
 
 export function cn(...inputs: ClassValue[]) {
